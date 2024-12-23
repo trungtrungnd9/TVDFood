@@ -82,7 +82,6 @@
                             <th>Tên sản phẩm</th>
                             <th>Giá</th>
                             <th>Số lượng</th>
-                            <th>Dung lượng</th>
                             <th>Tiền</th>
                             
                         </tr>
@@ -105,7 +104,6 @@
                             <td class="align-middle"><img src="<?=$hinhpath ?> " alt="" style="width: 50px;"><?=$tensp ?></td>
                             <td class="align-middle"><?= $gia?></td>
                             <td class="align-middle"><?= $soluong?></td>
-                            <td class="align-middle"><?= $dungluong?></td>
                             <td class="align-middle"><?= $thanhtien?></td>
                             
                         </tr>

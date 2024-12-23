@@ -21,8 +21,8 @@
                             <td><input type="checkbox" name="" id=""></td>
                             <td>'.$id.'</td>
                             <td>'.$tendm.'</td>
-                            <td> <a href="'.$suadm.'"><button class="btn btn-primary" type="button">Sửa</button></a>
-                              <a onclick="return confirm(\'Bạn có chắc chắn muốn xóa\')" href="'.$xoadm.'"><button class="btn btn-primary" type="button">Xóa</button></a>
+                            <td> <a href="'.$suadm.'"><button class="btn btn-warning" type="button">Sửa</button></a>
+                              <a onclick="return confirm(\'Bạn có chắc chắn muốn xóa\')" href="'.$xoadm.'"><button class="btn btn-danger" type="button">Xóa</button></a>
                              </td>
                             </tr>
                             ';

@@ -6,7 +6,7 @@
         </div>
     <form action="index.php?act=billcomfirm" method="post">
         <div class="row px-xl-5">
-            <div class="col-lg-5 mb-5">
+            <div class="col-lg-9 mb-5">
             <table class="table table-bordered text-center mb-0">
                         <div class="card-header bg-secondary border-0">
                         <h5 class="font-weight-semi-bold m-0">Thông tin khách hàng</h5>
@@ -64,7 +64,6 @@
                             <th>Tên sản phẩm</th>
                             <th>Giá</th>
                             <th>Số lượng</th>
-                            <th>Dung lượng</th>
                             <th>Tiền</th>
                             
                         </tr>
@@ -85,8 +84,7 @@
                                     <input type="text" class="form-control form-control-sm bg-secondary text-center" value="'.$cart[4].'">
                                 </div>
                             </td>
-                            <td class="align-middle">'.$cart[5].'</td>
-                            <td class="align-middle">$'.$ttien.'</td>
+                            <td class="align-middle">'.$ttien.' VND</td>
                             
                         </tr>';
                             $i+=1;   
@@ -100,7 +98,7 @@
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
                             <h5 class="font-weight-bold">Tổng </h5>
-                            <h5 class="font-weight-bold">$'.$tong.'</h5>
+                            <h5 class="font-weight-bold">'.$tong.' VND</h5>
                         </div>
                         <input type="submit" class="btn btn-block btn-primary my-3 py-3" name="dathang" value="Đồng ý đặt hàng">
                     </div>

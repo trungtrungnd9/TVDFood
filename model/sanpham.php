@@ -1,7 +1,7 @@
 <?php
-function insert_sanpham($tensp,$img,$gia,$dungluong,$soluong,$mota,$iddm){
-    $sql="INSERT INTO sanpham(tensp,hinhanh,gia,dungluong,soluong,mota,iddm) 
-    VALUES('$tensp','$img','$gia','$dungluong','$soluong','$mota','$iddm')";
+function insert_sanpham($tensp,$img,$gia,$size,$soluong,$mota,$iddm){
+    $sql="INSERT INTO sanpham(tensp,hinhanh,gia,size,soluong,mota,iddm) 
+    VALUES('$tensp','$img','$gia','$size','$soluong','$mota','$iddm')";
     pdo_execute($sql);
 }
 function loadall_sanpham($kyw,$iddm=0){
@@ -41,11 +41,11 @@ function loadone_sanpham($id){
    return $listsp;
 }
 
- function update_sanpham($id,$tensp,$img,$gia,$dungluong,$soluong,$mota,$iddm){
+ function update_sanpham($id,$tensp,$img,$gia,$size,$soluong,$mota,$iddm){
     if($img!=""){
-       $sql="UPDATE sanpham SET tensp='".$tensp."',hinhanh='".$img."',gia='".$gia."',dungluong='".$dungluong."',soluong='".$soluong."',mota='".$mota."',iddm='".$iddm."' WHERE id=".$id;
+       $sql="UPDATE sanpham SET tensp='".$tensp."',hinhanh='".$img."',gia='".$gia."',size='".$size."',soluong='".$soluong."',mota='".$mota."',iddm='".$iddm."' WHERE id=".$id;
     }else{
-        $sql="UPDATE sanpham SET tensp='".$tensp."',gia='".$gia."',dungluong='".$dungluong."',soluong='".$soluong."',mota='".$mota."',iddm='".$iddm."' WHERE id=".$id;
+        $sql="UPDATE sanpham SET tensp='".$tensp."',gia='".$gia."',size='".$size."',soluong='".$soluong."',mota='".$mota."',iddm='".$iddm."' WHERE id=".$id;
     }
      
      pdo_execute($sql);

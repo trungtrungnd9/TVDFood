@@ -6,9 +6,8 @@ include "model/pdo.php";
 include "model/danhmuc.php";
 include "model/sanpham.php";
 include "model/taikhoan.php";
+include "model/bill.php";
 include "model/cart.php";
-include "model/baiviet.php";
-
 
 if (!isset ($_SESSION['mycart']))
     $_SESSION['mycart'] = [];
@@ -83,10 +82,7 @@ if ((isset ($_GET['act'])) && ($_GET['act'] != "")) {
             session_unset();
             header("location: index.php");
             break;
-        case 'lienhe':
-            include "view/lienhe.php";
-            break;
-
+       
         case 'dssanpham':
 
             include "view/sanpham.php";
@@ -150,40 +146,56 @@ if ((isset ($_GET['act'])) && ($_GET['act'] != "")) {
             }
             include "view/taikhoan/quenmk.php";
             break;
-
         case 'addtocart':
-            if (isset ($_POST['addtocart']) && ($_POST['addtocart'])) {
-                $id = $_POST['id'];
-                $tensp = $_POST['tensp'];
-                $gia = $_POST['gia'];
-                $soluong = $_POST['soluong'];
-                $hinh = $_POST['hinh'];
-                $dungluong = $_POST['dungluong'];
-                $ttien = $gia * $soluong;
-
-
-                $fl = 0;
-               
-                if ($fl == 0) {
-                    $spadd = [$id, $tensp, $gia, $hinh, $soluong, $dungluong, $ttien];
-                    array_push($_SESSION['mycart'], $spadd);
+            if (isset($_POST['addtocart']) && $_POST['addtocart']) {
+                $id = $_POST['id']; // Product ID
+                $tensp = $_POST['tensp']; // Product name
+                $gia = isset($_POST['gia']) ? floatval($_POST['gia']) : 0; // Convert to float
+                $soluong = isset($_POST['soluong']) ? intval($_POST['soluong']) : 0; // Convert to integer
+                $hinh = $_POST['hinh']; // Product image
+        
+                // Check if the product already exists in the cart
+                $exists = false;
+                if (isset($_SESSION['mycart'])) {
+                    foreach ($_SESSION['mycart'] as &$item) {
+                        if ($item[0] == $id) {
+                            // Update the quantity and total price if the product exists
+                            $item[4] += $soluong;
+                            $item[5] = $item[4] * $gia;
+                            $exists = true;
+                            break;
+                        }
+                    }
+                } else {
+                    $_SESSION['mycart'] = [];
                 }
-
+        
+                // Add the product to the cart if it doesn't exist
+                if (!$exists) {
+                    $ttien = $gia * $soluong;
+                    $spadd = [$id, $tensp, $gia, $hinh, $soluong, $ttien];
+                    $_SESSION['mycart'][] = $spadd; // Use shorthand for array push
+                }
+        
+                include "view/giohang.php";
             }
-            include "view/giohang.php";
             break;
-
+        
         case 'delcart':
-            if (isset ($_GET['idcart'])) {
-                array_splice($_SESSION['mycart'], $_GET['idcart'], 1);
-
+            if (isset($_GET['idcart']) && is_numeric($_GET['idcart'])) {
+                $idcart = intval($_GET['idcart']);
+                if (isset($_SESSION['mycart'][$idcart])) {
+                    array_splice($_SESSION['mycart'], $idcart, 1);
+                }
             } else {
                 $_SESSION['mycart'] = [];
             }
-            header("Location:index.php?act=addtocart");
+            // header("Location:index.php?act=addtocart");
+            include "view/giohang.php";
+            exit; // Ensure no further code executes after redirection
             break;
-
-
+       
+    
         case 'giohang':
             include "view/giohang.php";
             break;
@@ -191,7 +203,8 @@ if ((isset ($_GET['act'])) && ($_GET['act'] != "")) {
         case 'bill':
             include "view/bill.php";
             break;
-
+    
+        
         case 'billcomfirm':
             if (isset ($_POST['dathang']) && ($_POST['dathang'])) {
                 $user = $_POST['user'];
@@ -203,23 +216,21 @@ if ((isset ($_GET['act'])) && ($_GET['act'] != "")) {
                 $tongdonhang = tongdonhang();
 
                 $idbill = insert_bill($user, $email, $diachi, $sdt, $pttt, $tongdonhang, $ngaydathang);
-
+                include "view/billcomfirm.php";
                 foreach ($_SESSION['mycart'] as $cart) {
                     insert_cart($_SESSION['user']['id'], $cart[0], $cart[3], $cart[1], $cart[2], $cart[4], $cart[5], $cart[6], $idbill);
                 }
-
-
             }
             $bill = loadone_bill($idbill);
-
-            include "view/billcomfirm.php";
             $_SESSION['mycart'] = [];
+
             break;
+
 
         case 'chitietsp':
             include "view/chitietsp.php";
             break;  
-
+    
         case 'lichsu':
             if(isset($_SESSION['user'])){
                 $ten = $_SESSION['ten'];
@@ -241,37 +252,7 @@ if ((isset ($_GET['act'])) && ($_GET['act'] != "")) {
             include "view/home.php";
             break;
 
-            case 'dsbaiviet':
-
-                include "view/baiviet.php";
-                break;
-    
-            case 'baiviet':
-    
-                
-                if (isset ($_GET['id']) && ($_GET['id'] > 0)) {
-                    $bai_viet = $_GET['id'];
-                } else {
-                    $bai_viet = 0;
-                }
-                $list_baiviet = load_all_baiviet( );
-              
-                include "view/baiviet.php";
-                break;
-
-             case 'baivietct':
-                 if (isset ($_GET['idbv']) && ($_GET['idbv'] > 0)) {
-        
-                 $onebv = loadone_baiviet($_GET['idbv']);
-                   extract($onebv);
-                  
-                   include "view/chitietbv.php";
-                   break;
-                    } else {
-                        include "view/home.php";
-                        break;
-                    }
-                    
+          
     }
 } else {
     include "view/home.php";

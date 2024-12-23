@@ -35,7 +35,7 @@
                     <small class="pt-1">(50 Reviews)</small>
                 </div>
                 <?php
-                echo '<h3 class="font-weight-semi-bold mb-4">$'.$gia.'</h3>';
+                echo '<h3 class="font-weight-semi-bold mb-4">'.$gia.'đ</h3>';
                 echo '<p class="mb-4">'.$mota.'</p>
                 <form action="index.php?act=addtocart" method="post">
                     <div class="d-flex mb-3">
@@ -43,7 +43,7 @@
                         <input type="number" name="soluong" min="1" max="10" value="1" id="">
                         <input type="hidden" name="tensp" value="'.$tensp.'">
                         <input type="hidden" name="id" value="'.$id.'">
-                        <input type="hidden" name="gia" value="'.$gia.'">
+                        <input type="hidden" name="gia" value="'.$gia.'đ">
                         <input type="hidden" name="hinh" value="'.$hinhanh.'">
                     </div>
                         <input class="btn btn-primary px-3" type="submit" name="addtocart" value="Thêm giỏ hàng">
@@ -79,25 +79,7 @@
         <div class="row px-xl-5">
 
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-                <script>
-                    $(document).ready(function(){
-                        
-                         $("#binhluan").load("view/binhluan/binhluanform.php",{idpro:<?=$id?>});
-                    
-                    });
-                </script>
-
-        <div class="card-header bg-secondary border-0 col-lg-12  ">
-                        <h4 class="font-weight-semi-bold m-0">Nội dung bình luận</h4>
-                    </div>                   
-            <div class="col-lg-12 card border-secondary"  >
-                <div class="card-body" id="binhluan">
-                        
-
-                </div>
-            </div>
-        </div>
+       
     </div>
 
     <div class="container-fluid pt-5">
@@ -127,7 +109,7 @@
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3" >'.$tensp.'</h6>
                         <div class="d-flex justify-content-center">
-                            <h6>$'.$gia.'</h6><h6 class="text-muted ml-2"><del></del></h6>
+                            <h6>'.$gia.' đ</h6><h6 class="text-muted ml-2"><del></del></h6>
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
